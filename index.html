@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MoodMap</title>
+    <link rel="stylesheet" href="common.css" />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="brand-wrap">
+          <span class="brand-mark">M</span>
+          <span class="brand-name">MoodMap</span>
+        </div>
+        <nav class="main-nav">
+          <a href="index.html">홈</a>
+          <a href="pages/dashboard/index.html">대시보드</a>
+          <a href="pages/checkin/index.html">감정 체크인</a>
+          <a href="pages/summary/index.html">요약</a>
+          <a href="pages/ai-chat/index.html">AI 대화</a>
+        </nav>
+      </header>
+
+      <main class="dashboard">
+        <section class="hero card">
+          <div>
+            <p class="eyebrow">우울감 기록 도우미</p>
+            <h1>오늘의 마음을 천천히 정리해보세요.</h1>
+            <p class="hero-text">
+              기분이 가장 낮았던 날과 가장 높았던 날을 비교하고,
+              정서의 흐름을 기록하면서 조금씩 자신을 이해해보는 공간입니다.
+            </p>
+          </div>
+          <a class="primary-btn" href="pages/checkin/index.html">오늘 감정 기록하기</a>
+        </section>
+
+        <section class="calendar-panel card">
+          <div class="section-header calendar-header">
+            <div>
+              <p class="eyebrow small">감정 캘린더</p>
+              <h3>한 달 기록 보기</h3>
+            </div>
+            <div class="cal-nav-wrap">
+              <button class="calendar-arrow" id="prevMonth" aria-label="이전 달">‹</button>
+              <select id="monthSelect" aria-label="월 선택"></select>
+              <select id="yearSelect" aria-label="연도 선택"></select>
+              <button class="calendar-arrow" id="nextMonth" aria-label="다음 달">›</button>
+            </div>
+          </div>
+
+          <div class="days-row">
+            <span>일</span>
+            <span>월</span>
+            <span>화</span>
+            <span>수</span>
+            <span>목</span>
+            <span>금</span>
+            <span>토</span>
+          </div>
+
+          <div id="calendarGrid" class="full-month-grid" aria-live="polite"></div>
+        </section>
+
+        <section class="detail-row">
+          <article class="card selected-day-card">
+            <div class="section-header small-gap">
+              <h3 id="selectedDateLabel">선택된 날짜</h3>
+            </div>
+            <div class="selected-mood-wrap">
+              <span id="selectedEmoji" class="selected-emoji">🙂</span>
+              <div>
+                <p class="selected-label">감정 상태</p>
+                <h4 id="selectedMoodText">평온</h4>
+              </div>
+            </div>
+            <ul class="selected-list">
+              <li><strong>우울감:</strong> <span id="selectedMoodValue">3/10</span></li>
+              <li><strong>무기력:</strong> <span id="selectedFatigueValue">4/10</span></li>
+              <li><strong>핵심 메모:</strong> <span id="selectedNote">짧은 산책으로 기분이 안정되었다.</span></li>
+            </ul>
+          </article>
+
+          <article class="card insight-card">
+            <div class="section-header small-gap">
+              <h3>이번 달 포인트</h3>
+            </div>
+            <ul class="mini-list">
+              <li>기분이 가장 낮았던 날은 14일로, 혼자 있는 시간이 길어졌던 날이었습니다.</li>
+              <li>기분이 가장 높았던 날은 21일로, 짧은 산책과 물 한 잔으로 마음이 가벼워졌습니다.</li>
+              <li>중간에 평온한 날이 늘어나면서 전체 흐름이 점점 안정적으로 바뀌고 있습니다.</li>
+            </ul>
+          </article>
+        </section>
+
+        <section class="status-grid">
+          <article class="status-card card">
+            <p class="label">우울감</p>
+            <h2>7/10</h2>
+            <span class="tone tone-low">조금 무거운 편</span>
+          </article>
+
+          <article class="status-card card">
+            <p class="label">무기력</p>
+            <h2>8/10</h2>
+            <span class="tone tone-mid">휴식이 필요해요</span>
+          </article>
+
+          <article class="status-card card">
+            <p class="label">집중력</p>
+            <h2>4/10</h2>
+            <span class="tone tone-low">분산되기 쉬운 상태</span>
+          </article>
+
+          <article class="status-card card">
+            <p class="label">수면</p>
+            <h2>불안정</h2>
+            <span class="tone tone-mid">잠이 자주 끊김</span>
+          </article>
+        </section>
+
+        <section class="content-grid">
+          <article class="card info-card">
+            <div class="section-header">
+              <h3>최근 감정 흐름</h3>
+              <a href="pages/summary/index.html">더 보기</a>
+            </div>
+            <ul class="mini-list">
+              <li>최근 7일 동안 우울감과 무기력함이 반복적으로 느껴졌어요.</li>
+              <li>혼자 있는 시간이 길었던 날에는 기분이 더 무거워지는 경향이 있었어요.</li>
+              <li>수면이 부족했던 날에는 감정이 더 예민하게 느껴졌어요.</li>
+            </ul>
+          </article>
+
+          <article class="card info-card">
+            <div class="section-header">
+              <h3>감정 키워드</h3>
+              <a href="pages/summary/index.html">요약 보기</a>
+            </div>
+            <div class="keyword-list">
+              <span class="keyword happy">😊 기쁨</span>
+              <span class="keyword calm">🙂 평온</span>
+              <span class="keyword anxious">😟 불안</span>
+              <span class="keyword tired">😔 무기력</span>
+              <span class="keyword sad">😞 우울함</span>
+            </div>
+          </article>
+        </section>
+
+        <section class="card notes-card">
+          <div class="section-header">
+            <h3>오늘의 한 줄 메모</h3>
+            <a href="pages/checkin/index.html">수정하기</a>
+          </div>
+          <p>
+            오늘은 무기력함이 너무 커서 생각을 정리하기 어려웠지만,
+            작은 산책과 물 한 컵으로 점점 숨이 조금 쉬어졌어요.
+          </p>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      const monthSelect = document.getElementById('monthSelect');
+      const yearSelect = document.getElementById('yearSelect');
+      const calendarGrid = document.getElementById('calendarGrid');
+      const selectedDateLabel = document.getElementById('selectedDateLabel');
+      const selectedEmoji = document.getElementById('selectedEmoji');
+      const selectedMoodText = document.getElementById('selectedMoodText');
+      const selectedMoodValue = document.getElementById('selectedMoodValue');
+      const selectedFatigueValue = document.getElementById('selectedFatigueValue');
+      const selectedNote = document.getElementById('selectedNote');
+
+      const monthNames = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
+      const emojiMap = {
+        happy: { emoji: '😊', label: '기쁨', mood: '5/10', fatigue: '2/10', note: '따뜻한 대화로 마음이 가벼워졌다.' },
+        calm: { emoji: '🙂', label: '평온', mood: '3/10', fatigue: '3/10', note: '짧은 산책으로 기분이 안정되었다.' },
+        anxious: { emoji: '😟', label: '불안', mood: '6/10', fatigue: '5/10', note: '혼자 있는 시간이 길어지며 불안감이 올라갔다.' },
+        tired: { emoji: '😔', label: '무기력', mood: '7/10', fatigue: '8/10', note: '에너지가 낮아져 잠시 멈춰야 했다.' },
+        sad: { emoji: '😞', label: '우울함', mood: '8/10', fatigue: '9/10', note: '하루가 무겁게 느껴졌고 집중이 어려웠다.' }
+      };
+
+      const moodSequence = ['happy', 'calm', 'anxious', 'tired', 'sad'];
+      const today = new Date();
+      const minYear = 2021;
+      const maxYear = today.getFullYear();
+      const maxMonth = today.getMonth();
+      let currentYear = today.getFullYear();
+      let currentMonth = today.getMonth();
+
+      for (let i = 0; i < 12; i++) {
+        const option = document.createElement('option');
+        option.value = String(i);
+        option.textContent = monthNames[i];
+        if (currentYear === maxYear && i > maxMonth) {
+          option.disabled = true;
+        }
+        monthSelect.appendChild(option);
+      }
+
+      for (let y = minYear; y <= maxYear; y++) {
+        const option = document.createElement('option');
+        option.value = String(y);
+        option.textContent = `${y}년`;
+        yearSelect.appendChild(option);
+      }
+
+      function getMoodForDate(date) {
+        const day = date.getDate();
+        const moodIndex = (day + currentMonth) % moodSequence.length;
+        return moodSequence[moodIndex];
+      }
+
+      function renderCalendar() {
+        if (currentYear > maxYear) currentYear = maxYear;
+        if (currentYear === maxYear && currentMonth > maxMonth) currentMonth = maxMonth;
+        if (currentYear < minYear) currentYear = minYear;
+        if (currentYear === minYear && currentMonth < 0) currentMonth = 0;
+
+        monthSelect.value = String(currentMonth);
+        yearSelect.value = String(currentYear);
+
+        const firstDayOfMonth = new Date(currentYear, currentMonth, 1);
+        const lastDayOfMonth = new Date(currentYear, currentMonth + 1, 0);
+        const startDate = new Date(firstDayOfMonth);
+        startDate.setDate(startDate.getDate() - firstDayOfMonth.getDay());
+
+        calendarGrid.innerHTML = '';
+
+        for (let i = 0; i < 35; i++) {
+          const cellDate = new Date(startDate);
+          cellDate.setDate(startDate.getDate() + i);
+          const moodKey = getMoodForDate(cellDate);
+          const mood = emojiMap[moodKey];
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = `day-cell mood-${moodKey}`;
+          button.dataset.date = cellDate.toISOString().slice(0, 10);
+          const emojiFilter = moodKey === 'happy'
+            ? 'hue-rotate(18deg) saturate(2.1) brightness(1.12)'
+            : moodKey === 'calm'
+              ? 'hue-rotate(110deg) saturate(2.0) brightness(1.12)'
+              : moodKey === 'anxious'
+                ? 'hue-rotate(-5deg) saturate(2.0) brightness(1.15)'
+                : moodKey === 'tired'
+                  ? 'hue-rotate(200deg) saturate(2.2) brightness(1.12)'
+                  : 'hue-rotate(305deg) saturate(2.1) brightness(1.12)';
+          button.innerHTML = `
+            <span class="day-number">${cellDate.getDate()}</span>
+            <span class="day-emoji" style="filter:${emojiFilter};">${mood.emoji}</span>
+          `;
+
+          if (cellDate.getMonth() !== currentMonth) {
+            button.classList.add('muted');
+          }
+
+          if (
+            cellDate.getDate() === new Date().getDate() &&
+            cellDate.getMonth() === new Date().getMonth() &&
+            cellDate.getFullYear() === new Date().getFullYear()
+          ) {
+            button.classList.add('today');
+          }
+
+          button.addEventListener('click', () => {
+            const dateKey = button.dataset.date;
+            const selected = new Date(dateKey + 'T00:00:00');
+            const selectedMood = emojiMap[getMoodForDate(selected)];
+            selectedDateLabel.textContent = `${selected.getFullYear()}년 ${selected.getMonth() + 1}월 ${selected.getDate()}일`;
+            selectedEmoji.textContent = selectedMood.emoji;
+            selectedEmoji.style.filter = moodKey === 'happy'
+              ? 'hue-rotate(18deg) saturate(2.1) brightness(1.12)'
+              : moodKey === 'calm'
+                ? 'hue-rotate(110deg) saturate(2.0) brightness(1.12)'
+                : moodKey === 'anxious'
+                  ? 'hue-rotate(-5deg) saturate(2.0) brightness(1.15)'
+                  : moodKey === 'tired'
+                    ? 'hue-rotate(200deg) saturate(2.2) brightness(1.12)'
+                    : 'hue-rotate(305deg) saturate(2.1) brightness(1.12)';
+            selectedMoodText.textContent = selectedMood.label;
+            selectedMoodValue.textContent = selectedMood.mood;
+            selectedFatigueValue.textContent = selectedMood.fatigue;
+            selectedNote.textContent = selectedMood.note;
+
+            document.querySelectorAll('.day-cell').forEach((cell) => cell.classList.remove('selected'));
+            button.classList.add('selected');
+          });
+
+          calendarGrid.appendChild(button);
+        }
+      }
+
+      monthSelect.addEventListener('change', (event) => {
+        const selectedMonth = Number(event.target.value);
+        if (currentYear === maxYear && selectedMonth > maxMonth) {
+          currentMonth = maxMonth;
+        } else {
+          currentMonth = selectedMonth;
+        }
+        renderCalendar();
+      });
+
+      yearSelect.addEventListener('change', (event) => {
+        currentYear = Number(event.target.value);
+        if (currentYear === maxYear) {
+          currentMonth = Math.min(currentMonth, maxMonth);
+        }
+        renderCalendar();
+      });
+
+      document.getElementById('prevMonth').addEventListener('click', () => {
+        if (currentYear === minYear && currentMonth === 0) return;
+        currentMonth -= 1;
+        if (currentMonth < 0) {
+          currentMonth = 11;
+          currentYear -= 1;
+        }
+        renderCalendar();
+      });
+
+      document.getElementById('nextMonth').addEventListener('click', () => {
+        if (currentYear === maxYear && currentMonth >= maxMonth) return;
+        currentMonth += 1;
+        if (currentMonth > 11) {
+          currentMonth = 0;
+          currentYear += 1;
+        }
+        renderCalendar();
+      });
+
+      renderCalendar();
+      const initialDate = new Date(currentYear, currentMonth, 1);
+      const initialMood = emojiMap[getMoodForDate(initialDate)];
+      selectedDateLabel.textContent = `${initialDate.getFullYear()}년 ${initialDate.getMonth() + 1}월 ${initialDate.getDate()}일`;
+      selectedEmoji.textContent = initialMood.emoji;
+      selectedEmoji.style.filter = 'hue-rotate(110deg) saturate(2.0) brightness(1.12)';
+      selectedMoodText.textContent = initialMood.label;
+      selectedMoodValue.textContent = initialMood.mood;
+      selectedFatigueValue.textContent = initialMood.fatigue;
+      selectedNote.textContent = initialMood.note;
+    </script>
+  </body>
+</html>

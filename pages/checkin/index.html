@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MoodMap | 감정 체크인</title>
+    <link rel="stylesheet" href="../../common.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="brand-wrap">
+          <span class="brand-mark">M</span>
+          <span class="brand-name">MoodMap</span>
+        </div>
+        <nav class="main-nav">
+          <a href="../../index.html">홈</a>
+          <a href="../dashboard/index.html">대시보드</a>
+          <a href="../checkin/index.html">감정 체크인</a>
+          <a href="../summary/index.html">요약</a>
+          <a href="../ai-chat/index.html">AI 대화</a>
+        </nav>
+      </header>
+
+      <main class="page-content">
+        <section class="section-title">
+          <p class="eyebrow">감정 체크인</p>
+          <h1>오늘의 마음을 기록해보세요.</h1>
+        </section>
+
+        <form class="checkin-form card">
+          <div class="field-group">
+            <label>오늘 느낀 기분</label>
+            <div class="option-grid">
+              <button type="button" class="mood-btn happy"><span>😊</span> 기쁨</button>
+              <button type="button" class="mood-btn calm"><span>🙂</span> 평온</button>
+              <button type="button" class="mood-btn anxious"><span>😟</span> 불안</button>
+              <button type="button" class="mood-btn tired"><span>😔</span> 무기력</button>
+              <button type="button" class="mood-btn sad"><span>😞</span> 우울함</button>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="mood-level">우울감 정도</label>
+            <input id="mood-level" type="range" min="0" max="10" value="7" />
+          </div>
+
+          <div class="field-group">
+            <label for="fatigue-level">무기력/피로 정도</label>
+            <input id="fatigue-level" type="range" min="0" max="10" value="8" />
+          </div>
+
+          <div class="field-group">
+            <label>집중력 저하 여부</label>
+            <div class="option-grid two-col">
+              <button type="button">있음</button>
+              <button type="button">보통</button>
+              <button type="button">없음</button>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label>수면 패턴</label>
+            <div class="option-grid">
+              <button type="button">너무 적음</button>
+              <button type="button">불안정</button>
+              <button type="button">보통</button>
+              <button type="button">충분함</button>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label>식욕 변화</label>
+            <div class="option-grid">
+              <button type="button">감소</button>
+              <button type="button">보통</button>
+              <button type="button">증가</button>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label>혼자 있는 시간의 길이</label>
+            <div class="option-grid">
+              <button type="button">짧음</button>
+              <button type="button">보통</button>
+              <button type="button">김</button>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="hardest-moment">오늘 가장 힘들었던 순간</label>
+            <textarea id="hardest-moment" rows="3" placeholder="예: 저녁 무렵 혼자 있는 시간이 길어지면서 감정이 무거워졌어요."></textarea>
+          </div>
+
+          <div class="field-group">
+            <label for="happiest-moment">오늘 가장 행복했던 순간</label>
+            <textarea id="happiest-moment" rows="3" placeholder="예: 잠깐의 산책이나 짧은 대화로 마음이 조금 가벼워졌어요."></textarea>
+          </div>
+
+          <div class="field-group recovery-box">
+            <label>오늘 가장 행복했던 순간을 떠올릴 때 참고할 수 있는 작은 회복 힌트</label>
+            <div class="recovery-tips">
+              <span>🌿 짧은 산책</span>
+              <span>💧 물 한 잔</span>
+              <span>☀️ 햇빛 5분</span>
+              <span>🫶 따뜻한 대화</span>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="memo">하루 한 줄 메모</label>
+            <textarea id="memo" rows="3" placeholder="오늘을 한 줄로 정리해보세요."></textarea>
+          </div>
+
+          <button type="submit" class="primary-btn">기록 저장하기</button>
+        </form>
+      </main>
+    </div>
+
+    <script>
+      document.querySelectorAll('.mood-btn, .option-grid button:not(.primary-btn)').forEach((button) => {
+        button.addEventListener('click', () => {
+          const group = button.parentElement;
+          group.querySelectorAll('button').forEach((item) => item.classList.remove('active'));
+          button.classList.add('active');
+        });
+      });
+
+      function showToast(message) {
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+      }
+
+      const saveButton = document.querySelector('.primary-btn');
+      saveButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        saveButton.classList.add('active');
+        showToast('✨ 기록이 저장되었습니다!');
+        setTimeout(() => saveButton.classList.remove('active'), 180);
+      });
+    </script>
+  </body>
+</html>

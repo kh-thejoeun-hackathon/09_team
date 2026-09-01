@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MoodMap | 캘린더</title>
+    <link rel="stylesheet" href="../../common.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="brand-wrap">
+          <span class="brand-mark">M</span>
+          <span class="brand-name">MoodMap</span>
+        </div>
+        <nav class="main-nav">
+          <a href="../../index.html">홈</a>
+          <a href="../dashboard/index.html">대시보드</a>
+          <a href="../checkin/index.html">감정 체크인</a>
+          <a href="../calendar/index.html">캘린더</a>
+          <a href="../summary/index.html">요약</a>
+          <a href="../ai-chat/index.html">AI 대화</a>
+        </nav>
+      </header>
+
+      <main class="page-content">
+        <section class="section-title">
+          <p class="eyebrow">감정 캘린더</p>
+          <h1>월별 감정 흐름</h1>
+        </section>
+
+        <section class="calendar-layout">
+          <div class="calendar card">
+            <div class="month-row">
+              <button>◀</button>
+              <h2>2026년 9월</h2>
+              <button>▶</button>
+            </div>
+
+            <div class="days-row">
+              <span>일</span>
+              <span>월</span>
+              <span>화</span>
+              <span>수</span>
+              <span>목</span>
+              <span>금</span>
+              <span>토</span>
+            </div>
+
+            <div class="calendar-grid">
+              <div class="empty"></div>
+              <div class="empty"></div>
+              <div class="empty"></div>
+              <div class="empty"></div>
+              <div class="cell mood-mid">1</div>
+              <div class="cell mood-low">2</div>
+              <div class="cell mood-high">3</div>
+              <div class="cell mood-stable">4</div>
+              <div class="cell mood-low">5</div>
+              <div class="cell mood-very-low">6</div>
+              <div class="cell mood-mid">7</div>
+              <div class="cell mood-high">8</div>
+              <div class="cell mood-stable">9</div>
+              <div class="cell mood-low">10</div>
+              <div class="cell mood-very-low">11</div>
+              <div class="cell mood-mid">12</div>
+              <div class="cell mood-stable">13</div>
+              <div class="cell mood-high">14</div>
+              <div class="cell mood-low">15</div>
+              <div class="cell mood-very-low">16</div>
+              <div class="cell mood-mid">17</div>
+              <div class="cell mood-stable">18</div>
+              <div class="cell mood-high">19</div>
+              <div class="cell mood-low">20</div>
+              <div class="cell mood-very-low">21</div>
+              <div class="cell mood-mid">22</div>
+              <div class="cell mood-stable">23</div>
+              <div class="cell mood-high">24</div>
+              <div class="cell mood-low">25</div>
+              <div class="cell mood-very-low">26</div>
+              <div class="cell mood-mid">27</div>
+              <div class="cell mood-high">28</div>
+              <div class="cell mood-stable">29</div>
+              <div class="cell mood-mid">30</div>
+            </div>
+          </div>
+
+          <aside class="card legend-card">
+            <h3>감정 색상</h3>
+            <ul>
+              <li><span class="legend mood-very-low"></span> 매우 낮음</li>
+              <li><span class="legend mood-low"></span> 낮음</li>
+              <li><span class="legend mood-mid"></span> 보통</li>
+              <li><span class="legend mood-stable"></span> 안정</li>
+              <li><span class="legend mood-high"></span> 높음</li>
+            </ul>
+
+            <div class="note-box">
+              <p><strong>가장 낮았던 날:</strong> 6일</p>
+              <p><strong>가장 높았던 날:</strong> 14일</p>
+            </div>
+          </aside>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

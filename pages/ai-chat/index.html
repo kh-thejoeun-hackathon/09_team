@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MoodMap | AI 대화</title>
+    <link rel="stylesheet" href="../../common.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="brand-wrap">
+          <span class="brand-mark">M</span>
+          <span class="brand-name">MoodMap</span>
+        </div>
+        <nav class="main-nav">
+          <a href="../../index.html">홈</a>
+          <a href="../dashboard/index.html">대시보드</a>
+          <a href="../checkin/index.html">감정 체크인</a>
+          <a href="../summary/index.html">요약</a>
+          <a href="../ai-chat/index.html">AI 대화</a>
+        </nav>
+      </header>
+
+      <main class="page-content">
+        <section class="section-title">
+          <p class="eyebrow">AI 대화</p>
+          <h1>오늘의 기분을 함께 정리해볼까요?</h1>
+        </section>
+
+        <section class="chat-shell card">
+          <div class="chat-message ai">
+            오늘도 천천히 정리해볼게요. 오늘 가장 힘들었던 순간과 가장 행복했던 순간을 함께 적어보면, 감정의 흐름을 더 잘 이해할 수 있어요.
+          </div>
+          <div class="chat-message user">
+            저녁 무렵 혼자 있는 시간이 길어지면서 마음이 무거워졌고, 짧은 산책과 물 한 잔으로 조금 가벼워졌어요.
+          </div>
+          <div class="chat-message ai">
+            오늘은 무기력함과 우울감이 함께 느껴졌지만, 짧은 회복 시간으로 기분이 조금씩 안정된 흐름을 보였어요. 이 패턴을 함께 정리해보면 어떤 변화가 보이는지 살펴볼 수 있어요.
+          </div>
+        </section>
+
+        <section class="prompt-box card">
+          <div class="prompt-header">
+            <h3>AI 프롬프트 자동 생성</h3>
+            <span class="small-note">챗GPT 또는 Gemini에 복붙해서 사용하세요.</span>
+          </div>
+
+          <div class="form-grid">
+            <label>
+              오늘 느낀 기분
+              <input type="text" id="todayMood" value="무기력함, 우울감, 불안" />
+            </label>
+
+            <label>
+              우울감 정도
+              <input type="text" id="moodLevel" value="7/10" />
+            </label>
+
+            <label>
+              무기력/피로 정도
+              <input type="text" id="fatigueLevel" value="8/10" />
+            </label>
+
+            <label>
+              집중력 저하 여부
+              <input type="text" id="focusLevel" value="있음" />
+            </label>
+
+            <label>
+              수면 패턴
+              <input type="text" id="sleepPattern" value="불안정, 밤에 잠이 계속 깨짐" />
+            </label>
+
+            <label>
+              식욕 변화
+              <input type="text" id="appetite" value="감소" />
+            </label>
+
+            <label>
+              혼자 있는 시간의 길이
+              <input type="text" id="aloneTime" value="길었음" />
+            </label>
+
+            <label>
+              오늘 가장 힘들었던 순간
+              <input type="text" id="hardestMoment" value="저녁 무렵 혼자 있는 시간이 길어지면서 마음이 무거워짐" />
+            </label>
+
+            <label>
+              오늘 가장 행복했던 순간
+              <input type="text" id="happiestMoment" value="짧은 산책과 물 한 잔을 마신 뒤 기분이 조금 가벼워짐" />
+            </label>
+
+            <label class="full-width">
+              하루 한 줄 메모
+              <textarea id="memo" rows="3">오늘은 무기력함이 컸지만, 잠깐의 산책과 물 한 잔으로 마음이 조금 숨 쉬는 느낌이 들었다.</textarea>
+            </label>
+          </div>
+
+          <div class="button-row">
+            <button type="button" class="primary-btn" id="generatePrompt">프롬프트 생성</button>
+            <button type="button" class="secondary-btn" id="copyPrompt">복사하기</button>
+            <button type="button" class="secondary-btn" id="openChatgpt">ChatGPT 열기</button>
+            <button type="button" class="secondary-btn" id="openGemini">Gemini 열기</button>
+          </div>
+
+          <label class="full-width">
+            복붙용 프롬프트
+            <textarea id="promptOutput" rows="12" readonly></textarea>
+          </label>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      const promptOutput = document.getElementById('promptOutput');
+
+      function buildPrompt() {
+        const todayMood = document.getElementById('todayMood').value || '정보 없음';
+        const moodLevel = document.getElementById('moodLevel').value || '정보 없음';
+        const fatigueLevel = document.getElementById('fatigueLevel').value || '정보 없음';
+        const focusLevel = document.getElementById('focusLevel').value || '정보 없음';
+        const sleepPattern = document.getElementById('sleepPattern').value || '정보 없음';
+        const appetite = document.getElementById('appetite').value || '정보 없음';
+        const aloneTime = document.getElementById('aloneTime').value || '정보 없음';
+        const hardestMoment = document.getElementById('hardestMoment').value || '정보 없음';
+        const happiestMoment = document.getElementById('happiestMoment').value || '정보 없음';
+        const memo = document.getElementById('memo').value || '정보 없음';
+
+        return `나는 우울감이 있는 사람을 위해 감정 일기 웹을 만들고 있어. 이 웹은 감정을 진단하는 도구가 아니라, 감정 상태를 안전하고 부드럽게 관찰하고 이해하도록 돕는 도구야.
+
+아래는 사용자가 하루 동안 기록한 감정 데이터야.
+
+- 오늘 느낀 기분: ${todayMood}
+- 우울감 정도: ${moodLevel}
+- 무기력/피로 정도: ${fatigueLevel}
+- 집중력 저하 여부: ${focusLevel}
+- 수면 패턴: ${sleepPattern}
+- 식욕 변화: ${appetite}
+- 혼자 있는 시간의 길이: ${aloneTime}
+- 오늘 가장 힘들었던 순간: ${hardestMoment}
+- 오늘 가장 행복했던 순간: ${happiestMoment}
+- 하루 한 줄 메모: ${memo}
+
+다음 조건에 맞게 답변해줘.
+1. 이 기록을 바탕으로 하루 감정 상태를 자연스럽고 부드러운 말로 정리해줘.
+2. 감정이 낮아진 원인으로 추정되는 요소를 3개 이내로 정리해줘.
+3. 이 사람의 감정 변화 패턴을 보기 쉽게 설명해줘.
+4. 가장 행복했던 순간과 가장 힘들었던 순간을 비교해서, 감정이 어떻게 움직였는지 설명해줘.
+5. 최근 7일 감정 흐름이 있다면, 반복되는 패턴을 예측해서 설명해줘.
+6. 이 사람에게 맞는 부드러운 위로와 회복 힌트를 3문장으로 제공해줘.
+7. 이 사람은 우울감이 있는 사람으로 보이지만, 감정 분석을 하는 도구이므로 의학적 진단을 내리거나 질병 판정을 하지는 말고, 자기 이해와 감정 관찰 중심으로 설명해줘.
+8. 만약 감정이 크게 낮거나 극단적인 불안감이 느껴지면, 안전하게 전문가 상담이나 도움을 받는 방향을 자연스럽게 안내해줘.
+9. 답변은 웹 화면에서 바로 보여줄 수 있도록 짧고 읽기 쉬운 문장으로 정리해줘.`;
+      }
+
+      document.querySelectorAll('.primary-btn, .secondary-btn').forEach((button) => {
+        button.addEventListener('click', () => {
+          button.classList.add('active');
+          setTimeout(() => button.classList.remove('active'), 180);
+        });
+      });
+
+      document.getElementById('generatePrompt').addEventListener('click', () => {
+        promptOutput.value = buildPrompt();
+      });
+
+      document.getElementById('copyPrompt').addEventListener('click', async () => {
+        const text = promptOutput.value || buildPrompt();
+        try {
+          await navigator.clipboard.writeText(text);
+          alert('프롬프트가 복사되었습니다. AI 사이트에 붙여넣기만 하면 됩니다.');
+        } catch (error) {
+          promptOutput.select();
+          document.execCommand('copy');
+          alert('프롬프트가 복사되었습니다. AI 사이트에 붙여넣기만 하면 됩니다.');
+        }
+      });
+
+      document.getElementById('openChatgpt').addEventListener('click', async () => {
+        const text = promptOutput.value || buildPrompt();
+        try {
+          await navigator.clipboard.writeText(text);
+        } catch (error) {
+          // 무시
+        }
+        window.open('https://chat.openai.com/', '_blank');
+      });
+
+      document.getElementById('openGemini').addEventListener('click', async () => {
+        const text = promptOutput.value || buildPrompt();
+        try {
+          await navigator.clipboard.writeText(text);
+        } catch (error) {
+          // 무시
+        }
+        window.open('https://gemini.google.com/app', '_blank');
+      });
+
+      promptOutput.value = buildPrompt();
+    </script>
+  </body>
+</html>
