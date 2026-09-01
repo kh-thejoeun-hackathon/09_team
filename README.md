@@ -44,6 +44,8 @@
 <img width="1728" height="1117" alt="index_1" src="https://github.com/user-attachments/assets/e1845f8c-508b-49ed-8025-91998929a77c" />
 <img width="1728" height="1117" alt="index2" src="https://github.com/user-attachments/assets/1762cc92-2bf6-4d6e-ae5a-3338bd072ab7" />
 
+<img width="1728" height="1117" alt="last" src="https://github.com/user-attachments/assets/b707c91d-21de-4114-b8c7-13297038e7f6" />
+<img width="1728" height="1117" alt="last2" src="https://github.com/user-attachments/assets/c874065e-dffd-4343-8655-58b2270afe33" />
 
 
 1. 메인 페이지 - 감정 캘린더
