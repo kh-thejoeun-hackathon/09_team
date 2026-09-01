@@ -37,7 +37,7 @@
 
 ## 7. 저장소 링크
 
-> [GitHub repo 링크](https://github.com/kh-thejeoeunis-hackathon/09_team)
+> [GitHub repo 링크](https://github.com/kh-thejoeun-hackathon/09_team)
 
 ## 8. 데모 화면
 
